@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfolio BTS SIO SISR – Alexis APPERY – Technicien informatique en alternance chez Zorba Group – Épreuve E4">
+  <meta name="author" content="Alexis APPERY">
+  <title>Portfolio – Alexis APPERY | BTS SIO SISR</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================
+       THÈME — VARIABLES
+    ============================ */
+    :root {
+      --bg:         #040d1b;
+      --bg2:        #081525;
+      --bg-card:    #0c1e33;
+      --bg-hover:   #0f2540;
+      --txt:        #e2e8f0;
+      --txt2:       #94a3b8;
+      --txt3:       #64748b;
+      --cyan:       #22d3ee;
+      --blue:       #3b82f6;
+      --green:      #10b981;
+      --amber:      #f59e0b;
+      --red:        #ef4444;
+      --border:     rgba(34,211,238,.14);
+      --border-hi:  rgba(34,211,238,.42);
+      --glow:       0 0 28px rgba(34,211,238,.18);
+      --shadow-c:   0 2px 16px rgba(0,0,0,.35);
+      --bub1:       rgba(34,211,238,.08);
+      --bub2:       rgba(59,130,246,.06);
+      --mono:       'Space Mono', monospace;
+      --serif:      'Playfair Display', serif;
+      --sans:       'Outfit', sans-serif;
+      --nav-h:      68px;
+      --r:          12px;
+      --ease:       all .3s cubic-bezier(.4,0,.2,1);
+    }
+    [data-theme="light"] {
+      --bg:         #f9f7f4;
+      --bg2:        #ffffff;
+      --bg-card:    #ffffff;
+      --bg-hover:   #f0ede8;
+      --txt:        #0a0a0a;
+      --txt2:       #555555;
+      --txt3:       #999999;
+      --cyan:       #0891b2;
+      --blue:       #2563eb;
+      --green:      #059669;
+      --amber:      #d97706;
+      --red:        #dc2626;
+      --border:     rgba(0,0,0,.09);
+      --border-hi:  rgba(8,145,178,.42);
+      --glow:       0 0 28px rgba(8,145,178,.12);
+      --shadow-c:   0 2px 16px rgba(0,0,0,.07);
+      --bub1:       rgba(8,145,178,.06);
+      --bub2:       rgba(168,85,247,.04);
+    }
+
+    /* ============================
+       RESET & BASE
+    ============================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--txt);
+      line-height: 1.65;
+      overflow-x: hidden;
+      transition: background .4s, color .4s;
+    }
+
+    /* Bulle Zorba */
+    .zbubble {
+      position: absolute; border-radius: 50%;
+      filter: blur(90px); pointer-events: none; z-index: 0;
+    }
+
+    /* Scroll progress */
+    #sbar {
+      position: fixed; top: 0; left: 0; height: 3px; width: 0;
+      background: linear-gradient(90deg, var(--cyan), var(--blue));
+      z-index: 9999; transition: width .12s linear;
+    }
+
+    /* ============================
+       NAVIGATION
+    ============================ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h);
+      background: rgba(4,13,27,.88); backdrop-filter: blur(22px);
+      border-bottom: 1px solid var(--border); z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; transition: background .4s, border-color .4s;
+    }
+    [data-theme="light"] nav { background: rgba(249,247,244,.92); }
+    .nav-logo {
+      font-family: var(--mono); font-size: 1rem;
+      color: var(--cyan); text-decoration: none; letter-spacing: -.3px;
+    }
+    .nav-logo em { font-style: normal; font-family: var(--serif); }
+    .nav-links { display: flex; list-style: none; gap: .3rem; align-items: center; }
+    .nav-links a {
+      color: var(--txt2); text-decoration: none; font-size: .8rem; font-weight: 500;
+      padding: .36rem .68rem; border-radius: 6px; transition: var(--ease);
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--cyan); background: rgba(34,211,238,.08); }
+    [data-theme="light"] .nav-links a:hover,
+    [data-theme="light"] .nav-links a.active { background: rgba(8,145,178,.08); }
+    .nav-cta { background: rgba(34,211,238,.1) !important; border: 1px solid var(--border) !important; color: var(--cyan) !important; }
+    .nav-cta:hover { background: rgba(34,211,238,.2) !important; }
+    .nav-r { display: flex; align-items: center; gap: .5rem; }
+    .theme-btn {
+      width: 38px; height: 38px; border-radius: 9px; cursor: pointer;
+      background: rgba(34,211,238,.08); border: 1px solid var(--border);
+      color: var(--txt2); font-size: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: var(--ease);
+    }
+    .theme-btn:hover { color: var(--cyan); border-color: var(--border-hi); }
+    .burger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 5px; background: none; border: none;
+    }
+    .burger span { display: block; width: 24px; height: 2px; background: var(--txt); border-radius: 2px; transition: var(--ease); }
+
+    /* ============================
+       UTILITAIRES
+    ============================ */
+    section { position: relative; z-index: 1; }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+    .sec-alt  { background: var(--bg2); padding: 5.5rem 0; transition: background .4s; }
+    .sec-norm { padding: 5.5rem 0; }
+    .sec-hd { text-align: center; margin-bottom: 3.5rem; }
+    .sec-tag { font-family: var(--mono); font-size: .7rem; color: var(--cyan); letter-spacing: .18em; text-transform: uppercase; display: block; margin-bottom: .7rem; }
+    .sec-title { font-size: 2.1rem; font-weight: 700; line-height: 1.2; font-family: var(--sans); }
+    .sec-title em { font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--cyan); }
+    .divider { width: 48px; height: 3px; background: linear-gradient(90deg, var(--cyan), transparent); margin: .9rem auto 0; border-radius: 2px; }
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.on { opacity: 1; transform: none; }
+    .btn {
+      display: inline-flex; align-items: center; gap: .45rem;
+      padding: .72rem 1.45rem; border-radius: 8px; font-size: .88rem;
+      font-weight: 600; text-decoration: none; cursor: pointer;
+      transition: var(--ease); border: none; outline: none;
+      font-family: var(--sans); letter-spacing: .02em;
+    }
+    .btn-primary { background: linear-gradient(135deg, var(--cyan), var(--blue)); color: #fff; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(34,211,238,.3); }
+    .btn-ghost { background: transparent; border: 1px solid var(--border); color: var(--txt); }
+    .btn-ghost:hover { border-color: var(--border-hi); background: rgba(34,211,238,.05); transform: translateY(-2px); }
+    .btn-sm { padding: .38rem .9rem; font-size: .78rem; border-radius: 6px; }
+    .tag { font-size: .68rem; font-family: var(--mono); padding: .18rem .55rem; border-radius: 4px; background: rgba(34,211,238,.08); border: 1px solid rgba(34,211,238,.2); color: var(--cyan); white-space: nowrap; }
+    .tag-g { background: rgba(16,185,129,.08); border-color: rgba(16,185,129,.2); color: var(--green); }
+    .tag-a { background: rgba(245,158,11,.08); border-color: rgba(245,158,11,.2); color: var(--amber); }
+    .tag-b { background: rgba(59,130,246,.08); border-color: rgba(59,130,246,.2); color: var(--blue); }
+
+    /* ============================
+       HERO
+    ============================ */
+    #accueil {
+      min-height: 100vh; display: flex; align-items: center;
+      padding-top: var(--nav-h); padding-bottom: 4rem; overflow: hidden;
+    }
+    .hero-grid { display: grid; grid-template-columns: 1fr; gap: 3.5rem; align-items: center; max-width: 700px; margin: 0 auto; text-align: center; }
+    .hero-acts, .hero-stats, .hero-soc { justify-content: center; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(34,211,238,.07); border: 1px solid var(--border);
+      border-radius: 100px; padding: .32rem .95rem;
+      font-size: .75rem; color: var(--cyan); font-family: var(--mono);
+      margin-bottom: 1.4rem; animation: fadeUp .6s ease both;
+    }
+    .hero-badge::before { content: '●'; font-size: .55rem; color: var(--green); animation: blink 1.8s ease infinite; }
+    .hero-name { font-size: clamp(2.4rem,5vw,3.8rem); font-weight: 700; line-height: 1.05; margin-bottom: .5rem; animation: fadeUp .6s .1s ease both; }
+    .hero-name em { font-family: var(--serif); font-style: italic; color: var(--cyan); display: block; font-size: clamp(2.6rem,5.5vw,4.2rem); }
+    .hero-sub { font-family: var(--mono); font-size: .95rem; color: var(--txt2); margin-bottom: 1.4rem; animation: fadeUp .6s .18s ease both; }
+    .cursor { color: var(--cyan); animation: blink 1s step-end infinite; }
+    .hero-desc { color: var(--txt2); font-size: .96rem; max-width: 100%; line-height: 1.78; margin-bottom: 1.9rem; animation: fadeUp .6s .26s ease both; }
+    .hero-desc strong { color: var(--cyan); font-weight: 600; }
+    .hero-acts { display: flex; gap: .9rem; flex-wrap: wrap; animation: fadeUp .6s .34s ease both; }
+    .hero-stats { display: flex; gap: 2rem; margin-top: 2.4rem; animation: fadeUp .6s .44s ease both; }
+    .hstat-val { font-family: var(--mono); font-size: 1.5rem; font-weight: 700; color: var(--cyan); display: block; }
+    .hstat-lbl { font-size: .7rem; color: var(--txt3); text-transform: uppercase; letter-spacing: .05em; }
+    .hero-soc { display: flex; gap: .7rem; margin-top: 1.6rem; animation: fadeUp .6s .44s ease both; }
+    .soc-a {
+      display: flex; align-items: center; justify-content: center;
+      width: 38px; height: 38px; border-radius: 8px;
+      background: rgba(34,211,238,.07); border: 1px solid var(--border);
+      color: var(--txt2); text-decoration: none; font-size: .9rem; transition: var(--ease);
+    }
+    .soc-a:hover { color: var(--cyan); border-color: var(--border-hi); transform: translateY(-3px); }
+    /* Avatar */
+    .hero-av { animation: fadeRight .8s .2s ease both; }
+    .av-wrap {
+      width: 210px; height: 210px; border-radius: 50%;
+      border: 2px solid var(--cyan); padding: 4px;
+      background: var(--bg2); position: relative;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 44px rgba(34,211,238,.2); transition: background .4s, border-color .4s;
+    }
+    .av-inner {
+      width: 100%; height: 100%; border-radius: 50%;
+      background: linear-gradient(135deg, var(--bg-card), var(--bg2));
+      display: flex; align-items: center; justify-content: center; font-size: 5rem; transition: background .4s;
+    }
+    .av-ring {
+      position: absolute; top: -14px; left: -14px; right: -14px; bottom: -14px;
+      border-radius: 50%; border: 1px dashed rgba(34,211,238,.28);
+      animation: spin 22s linear infinite;
+    }
+    .av-ring::after { content: '◆'; position: absolute; top: 7px; left: 50%; transform: translateX(-50%); font-size: 7px; color: var(--cyan); }
+
+    /* ============================
+       À PROPOS
+    ============================ */
+    .about-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 4rem; align-items: center; }
+    .about-infos { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .about-info-item {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 1.2rem; text-align: center;
+      transition: var(--ease), background .4s;
+    }
+    .about-info-item:hover { border-color: var(--border-hi); }
+    .aiv { font-family: var(--serif); font-style: italic; font-size: 2.2rem; font-weight: 700; color: var(--cyan); line-height: 1; display: block; margin-bottom: .3rem; }
+    .ail { font-size: .72rem; color: var(--txt3); text-transform: uppercase; letter-spacing: .08em; font-family: var(--mono); }
+    .about-extra { margin-top: 1.2rem; display: flex; flex-direction: column; gap: .75rem; }
+    .about-pill {
+      display: flex; align-items: center; gap: .65rem;
+      background: rgba(34,211,238,.05); border: 1px solid var(--border);
+      border-radius: 9px; padding: .55rem .9rem; font-size: .8rem; color: var(--txt2);
+    }
+    .about-pill-icon { font-size: 1.1rem; flex-shrink: 0; }
+    .about-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 2.2rem; position: relative;
+      overflow: hidden; transition: background .4s, border-color .4s; box-shadow: var(--shadow-c);
+    }
+    .about-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--cyan), var(--blue), transparent);
+      border-radius: var(--r) var(--r) 0 0;
+    }
+    .about-quote { font-family: var(--serif); font-style: italic; font-size: 1.08rem; color: var(--cyan); margin-bottom: 1.4rem; line-height: 1.4; }
+    .about-p { font-size: .95rem; color: var(--txt2); line-height: 1.8; margin-bottom: 1.1rem; }
+    .about-p strong { color: var(--txt); font-weight: 600; }
+    .zorba-box {
+      display: flex; align-items: center; gap: .75rem;
+      background: rgba(34,211,238,.07); border: 1px solid var(--border);
+      border-radius: 10px; padding: .85rem 1.1rem; margin-top: 1.5rem;
+    }
+    .zorba-box-txt { font-size: .8rem; color: var(--txt2); line-height: 1.55; }
+    .zorba-box-txt strong { color: var(--cyan); }
+
+    /* ============================
+       BTS SIO
+    ============================ */
+    .bts-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.4rem; margin-bottom: 3rem; }
+    .bts-card {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r);
+      padding: 1.5rem; transition: var(--ease), background .4s; position: relative; overflow: hidden;
+    }
+    .bts-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--cyan), var(--blue)); }
+    .bts-card:hover { border-color: var(--border-hi); box-shadow: var(--glow); }
+    .bts-card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: .45rem; }
+    .bts-card p { font-size: .85rem; color: var(--txt2); line-height: 1.65; }
+    .opt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; margin-bottom: 3rem; }
+    .opt-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r); padding: 1.9rem; transition: var(--ease), background .4s; position: relative; }
+    .opt-card.chosen { border-color: var(--cyan); box-shadow: var(--glow); }
+    .opt-card.chosen::after {
+      content: '✦ Mon option'; position: absolute; top: 1rem; right: 1rem;
+      background: rgba(34,211,238,.13); color: var(--cyan);
+      font-size: .7rem; font-weight: 700; padding: .22rem .65rem; border-radius: 100px;
+      border: 1px solid var(--cyan); font-family: var(--mono);
+    }
+    .opt-title { font-size: 1.2rem; font-weight: 700; margin-bottom: .2rem; }
+    .opt-sub { font-family: var(--mono); font-size: .72rem; color: var(--cyan); margin-bottom: 1rem; }
+    .opt-desc { font-size: .86rem; color: var(--txt2); margin-bottom: 1.2rem; line-height: 1.65; }
+    .opt-jobs { list-style: none; }
+    .opt-jobs li { font-size: .84rem; color: var(--txt2); padding: .28rem 0; display: flex; align-items: center; gap: .45rem; }
+    .opt-jobs li::before { content: '→'; color: var(--cyan); font-family: var(--mono); }
+    .blocs-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.4rem; }
+    .bloc-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r); padding: 1.7rem; transition: var(--ease), background .4s; }
+    .bloc-card:hover { border-color: var(--border-hi); }
+    .bloc-badge { display: inline-flex; align-items: center; justify-content: center; width: 46px; height: 46px; border-radius: 10px; background: rgba(34,211,238,.1); border: 1px solid var(--border); font-family: var(--mono); font-size: .82rem; color: var(--cyan); font-weight: 700; margin-bottom: .9rem; }
+    .bloc-card h3 { font-size: .95rem; font-weight: 600; margin-bottom: .7rem; line-height: 1.45; }
+    .bloc-skills { list-style: none; }
+    .bloc-skills li { font-size: .8rem; color: var(--txt2); padding: .22rem 0; display: flex; align-items: center; gap: .45rem; }
+    .bloc-skills li::before { content: '▸'; color: var(--cyan); font-size: .62rem; }
+
+    /* ============================
+       PARCOURS
+    ============================ */
+    .parcours-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+    .tl-label { font-family: var(--mono); font-size: .72rem; color: var(--cyan); text-transform: uppercase; letter-spacing: .12em; margin-bottom: 2rem; }
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before { content: ''; position: absolute; left: 8px; top: 6px; bottom: 6px; width: 2px; background: linear-gradient(to bottom, var(--cyan), transparent); }
+    .tl-item { position: relative; padding-bottom: 2.4rem; }
+    .tl-dot { position: absolute; left: -2rem; top: 4px; width: 17px; height: 17px; border-radius: 50%; background: var(--bg); border: 2px solid var(--cyan); box-shadow: 0 0 10px rgba(34,211,238,.35); transition: background .4s; }
+    .tl-dot.on { background: var(--cyan); }
+    .tl-date { font-family: var(--mono); font-size: .7rem; color: var(--cyan); margin-bottom: .22rem; }
+    .tl-title { font-size: 1rem; font-weight: 600; margin-bottom: .22rem; }
+    .tl-place { font-size: .82rem; color: var(--txt3); margin-bottom: .45rem; }
+    .tl-desc { font-size: .84rem; color: var(--txt2); line-height: 1.62; }
+    .tl-tasks { list-style: none; margin-top: .5rem; }
+    .tl-tasks li { font-size: .8rem; color: var(--txt2); padding: .2rem 0; display: flex; align-items: flex-start; gap: .45rem; }
+    .tl-tasks li::before { content: '▸'; color: var(--cyan); font-size: .6rem; margin-top: .3rem; flex-shrink: 0; }
+
+    /* ============================
+       PROJETS PPE
+    ============================ */
+    .proj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px,1fr)); gap: 1.4rem; }
+    .proj-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; transition: var(--ease), background .4s; display: flex; flex-direction: column; }
+    .proj-card:hover { border-color: var(--border-hi); box-shadow: var(--glow); transform: translateY(-4px); }
+    .proj-head { padding: 1.4rem; border-bottom: 1px solid var(--border); background: linear-gradient(135deg, rgba(34,211,238,.05), rgba(59,130,246,.04)); display: flex; align-items: center; gap: .9rem; }
+    .proj-ico { width: 48px; height: 48px; border-radius: 10px; flex-shrink: 0; background: rgba(34,211,238,.1); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.7rem; }
+    .proj-title { font-size: 1rem; font-weight: 600; margin-bottom: .18rem; }
+    .proj-period { font-family: var(--mono); font-size: .67rem; color: var(--txt3); }
+    .proj-body { padding: 1.4rem; flex: 1; }
+    .proj-desc { font-size: .855rem; color: var(--txt2); line-height: 1.65; margin-bottom: .9rem; }
+    .tags-row { display: flex; flex-wrap: wrap; gap: .45rem; margin-bottom: .9rem; }
+    .cbadges { display: flex; flex-wrap: wrap; gap: .38rem; }
+    .cbadge { font-size: .62rem; font-family: var(--mono); padding: .14rem .48rem; border-radius: 100px; background: rgba(59,130,246,.1); border: 1px solid rgba(59,130,246,.2); color: var(--blue); }
+    .proj-foot { padding: .95rem 1.4rem; border-top: 1px solid var(--border); display: flex; gap: .65rem; flex-wrap: wrap; }
+    /* Detail steps */
+    .proj-steps { list-style: none; margin-top: .7rem; }
+    .proj-steps li { font-size: .78rem; color: var(--txt2); padding: .2rem 0; display: flex; align-items: flex-start; gap: .45rem; }
+    .proj-steps li::before { content: '→'; color: var(--cyan); font-family: var(--mono); font-size: .7rem; margin-top: .15rem; flex-shrink: 0; }
+
+    /* ============================
+       VEILLE
+    ============================ */
+    .veille-grid { display: grid; grid-template-columns: 1fr 1.85fr; gap: 2rem; align-items: start; }
+    .veille-topic { background: var(--bg-card); border: 1px solid var(--cyan); border-radius: var(--r); padding: 2rem; box-shadow: var(--glow); transition: background .4s; }
+    .veille-topic h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: .3rem; line-height: 1.4; }
+    .veille-topic h3 em { font-family: var(--serif); font-style: italic; color: var(--cyan); }
+    .veille-topic .vsub { font-family: var(--mono); font-size: .7rem; color: var(--cyan); margin-bottom: .9rem; }
+    .veille-topic p { font-size: .855rem; color: var(--txt2); line-height: 1.65; }
+    .veille-right { display: flex; flex-direction: column; gap: 1.4rem; }
+    .veille-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r); padding: 1.45rem; transition: background .4s; }
+    .vbox-title { font-size: .84rem; font-weight: 600; color: var(--txt); margin-bottom: .9rem; display: flex; align-items: center; gap: .4rem; }
+    .vbox-title::before { content: '//'; color: var(--cyan); font-family: var(--mono); font-size: .78rem; }
+    .tools-row { display: flex; flex-wrap: wrap; gap: .65rem; }
+    .tool-pill { display: flex; align-items: center; gap: .4rem; background: rgba(34,211,238,.05); border: 1px solid var(--border); border-radius: 7px; padding: .42rem .72rem; font-size: .78rem; color: var(--txt2); transition: var(--ease); }
+    .tool-pill:hover { border-color: var(--border-hi); color: var(--txt); }
+    .veille-box p { font-size: .855rem; color: var(--txt2); line-height: 1.65; }
+
+    /* ============================
+       PATRIMOINE
+    ============================ */
+    .intro-txt { text-align: center; color: var(--txt2); max-width: 700px; margin: 0 auto 3rem; font-size: .91rem; line-height: 1.75; }
+    .pat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap: 1.2rem; }
+    .pat-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r); padding: 1.45rem; transition: var(--ease), background .4s; }
+    .pat-card:hover { border-color: var(--border-hi); background: var(--bg-hover); }
+    .pat-ico { font-size: 1.7rem; margin-bottom: .65rem; }
+    .pat-card h3 { font-size: .93rem; font-weight: 600; margin-bottom: .42rem; }
+    .pat-card p { font-size: .8rem; color: var(--txt2); line-height: 1.55; }
+
+    /* ============================
+       COMPÉTENCES / TABLEAU E5
+    ============================ */
+    .e5-iframe-wrap {
+      border-radius: var(--r);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      background: var(--bg2);
+      transition: border-color .4s, box-shadow .4s;
+      box-shadow: 0 4px 24px rgba(0,0,0,.25);
+    }
+    .e5-iframe-wrap:hover {
+      border-color: var(--border-hi);
+      box-shadow: var(--glow);
+    }
+    .e5-iframe-wrap iframe {
+      display: block;
+      width: 100%;
+      height: 620px;
+      border: none;
+    }
+    @media (max-width: 768px) {
+      .e5-iframe-wrap iframe { height: 480px; }
+    }
+
+    /* ============================
+       CONTACT
+    ============================ */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.55fr; gap: 3rem; align-items: start; }
+    .contact-info h3 { font-size: 1.45rem; font-weight: 700; margin-bottom: .9rem; }
+    .contact-info h3 em { font-family: var(--serif); font-style: italic; color: var(--cyan); }
+    .contact-info > p { color: var(--txt2); font-size: .9rem; line-height: 1.72; margin-bottom: 1.9rem; }
+    .ci-list { display: flex; flex-direction: column; gap: .9rem; }
+    .ci-item { display: flex; align-items: center; gap: .72rem; font-size: .86rem; color: var(--txt2); }
+    .ci-ico { width: 36px; height: 36px; flex-shrink: 0; border-radius: 8px; background: rgba(34,211,238,.1); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: .95rem; }
+    .ci-lbl { font-size: .7rem; color: var(--txt3); margin-bottom: .05rem; }
+    .ci-item a { color: var(--cyan); text-decoration: none; }
+    .ci-item a:hover { text-decoration: underline; }
+    .contact-form { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r); padding: 2rem; transition: background .4s, border-color .4s; }
+    .form-group { margin-bottom: 1.2rem; }
+    label { display: block; font-size: .75rem; font-weight: 600; color: var(--txt2); margin-bottom: .38rem; font-family: var(--mono); text-transform: uppercase; letter-spacing: .07em; }
+    input[type="text"], input[type="email"], textarea { width: 100%; background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: .72rem 1rem; color: var(--txt); font-family: var(--sans); font-size: .9rem; transition: var(--ease), background .4s; outline: none; }
+    input[type="text"]:focus, input[type="email"]:focus, textarea:focus { border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(34,211,238,.1); }
+    textarea { resize: vertical; min-height: 115px; }
+    .f-ok  { display: none; margin-top: .9rem; padding: .72rem 1rem; background: rgba(16,185,129,.1); border: 1px solid rgba(16,185,129,.3); border-radius: 8px; color: var(--green); font-size: .85rem; text-align: center; }
+    .f-err { display: none; margin-top: .9rem; padding: .72rem 1rem; background: rgba(239,68,68,.1); border: 1px solid rgba(239,68,68,.3); border-radius: 8px; color: var(--red); font-size: .85rem; }
+
+    /* ============================
+       FOOTER
+    ============================ */
+    footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 2.4rem 0; text-align: center; transition: background .4s, border-color .4s; }
+    .foot-inner { display: flex; flex-direction: column; align-items: center; gap: .9rem; }
+    .f-logo { font-family: var(--mono); color: var(--cyan); font-size: 1rem; }
+    .f-tag { font-family: var(--serif); font-style: italic; font-size: .9rem; color: var(--txt3); }
+    .f-links { display: flex; gap: 1.4rem; list-style: none; }
+    .f-links a { color: var(--txt3); text-decoration: none; font-size: .78rem; transition: var(--ease); }
+    .f-links a:hover { color: var(--cyan); }
+    .f-copy { font-family: var(--mono); font-size: .7rem; color: var(--txt3); }
+
+    /* Back to top */
+    #btt { position: fixed; bottom: 1.8rem; right: 1.8rem; width: 42px; height: 42px; border-radius: 9px; background: rgba(34,211,238,.14); border: 1px solid var(--border); color: var(--cyan); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1rem; transition: var(--ease); opacity: 0; pointer-events: none; z-index: 100; text-decoration: none; }
+    #btt.show { opacity: 1; pointer-events: all; }
+    #btt:hover { background: rgba(34,211,238,.25); transform: translateY(-3px); }
+
+    /* ============================
+       KEYFRAMES
+    ============================ */
+    @keyframes fadeUp    { from { opacity:0; transform:translateY(26px); } to { opacity:1; transform:none; } }
+    @keyframes fadeRight { from { opacity:0; transform:translateX(28px); } to { opacity:1; transform:none; } }
+    @keyframes blink     { 0%,100%{opacity:1}50%{opacity:0} }
+    @keyframes spin      { to { transform:rotate(360deg); } }
+    @keyframes float1    { 0%,100%{transform:translate(0,0);} 50%{transform:translate(28px,-18px);} }
+    @keyframes float2    { 0%,100%{transform:translate(0,0);} 50%{transform:translate(-22px,14px);} }
+
+    /* ============================
+       RESPONSIVE
+    ============================ */
+    @media (max-width: 900px) {
+      .hero-grid, .about-grid, .parcours-grid, .veille-grid, .contact-grid { grid-template-columns: 1fr; }
+      .hero-av { display: none; }
+      .hero-acts, .hero-stats, .hero-soc { justify-content: center; }
+      .hero-desc { max-width: 100%; }
+      .hero-name, .sec-title { text-align: left; }
+      .bts-3, .opt-grid, .blocs-3 { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .burger { display: flex; }
+      .nav-links.open { display: flex; flex-direction: column; position: absolute; top: var(--nav-h); left: 0; right: 0; background: rgba(4,13,27,.97); padding: 1rem; border-bottom: 1px solid var(--border); }
+      [data-theme="light"] .nav-links.open { background: rgba(249,247,244,.97); }
+    }
+    @media (max-width: 600px) {
+      .sec-title { font-size: 1.72rem; }
+      .proj-grid { grid-template-columns: 1fr; }
+      .pat-grid { grid-template-columns: 1fr 1fr; }
+      .about-infos { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="sbar" aria-hidden="true"></div>
+
+<!-- ===== NAVIGATION ===== -->
+<nav id="navbar" role="navigation" aria-label="Navigation principale">
+  <a href="#accueil" class="nav-logo">&lt;<em>Alexis</em>.APPERY/&gt;</a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#accueil">Accueil</a></li>
+    <li><a href="#apropos">À propos</a></li>
+    <li><a href="#parcours">Parcours</a></li>
+    <li><a href="#bts-sio">BTS SIO</a></li>
+    <li><a href="#projets">Projets PPE</a></li>
+    <li><a href="#veille">Veille</a></li>
+    <li><a href="#competences">Compétences</a></li>
+  </ul>
+  <div class="nav-r">
+    <button class="theme-btn" id="theme-btn" aria-label="Basculer le thème">☀️</button>
+    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section id="accueil">
+  <div class="zbubble" style="width:500px;height:500px;top:-100px;right:-100px;background:var(--bub1);animation:float1 18s ease infinite;" aria-hidden="true"></div>
+  <div class="zbubble" style="width:350px;height:350px;bottom:-50px;left:-80px;background:var(--bub2);animation:float2 14s ease infinite;" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-badge">BTS SIO &nbsp;·&nbsp; Option SISR &nbsp;·&nbsp; 2ème Année &nbsp;·&nbsp; Alternance</div>
+        <h1 class="hero-name">
+          Alexis
+          <em>APPERY</em>
+        </h1>
+        <p class="hero-sub">
+          <span id="typewriter" aria-live="polite"></span><span class="cursor" aria-hidden="true">|</span>
+        </p>
+        <p class="hero-desc">
+          Étudiant en BTS SIO option SISR, en alternance chez <strong>Zorba Group</strong> en tant que technicien informatique dédié à l'équipe post-production. Passionné par la cybersécurité, l'administration réseaux et les systèmes Linux.
+        </p>
+        <div class="hero-acts">
+          <a href="#projets" class="btn btn-primary">Voir mes projets →</a>
+        </div>
+
+        <div class="hero-soc">
+          <a href="https://www.linkedin.com/in/votre-profil" target="_blank" rel="noopener noreferrer" class="soc-a" aria-label="LinkedIn">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          </a>
+          <a href="https://github.com/votre-pseudo" target="_blank" rel="noopener noreferrer" class="soc-a" aria-label="GitHub">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          </a>
+          <a href="mailto:alexis.appery92@gmail.com" class="soc-a" aria-label="Email">✉</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== À PROPOS ===== -->
+<section id="apropos" class="sec-alt">
+  <div class="zbubble" style="width:300px;height:300px;top:0;right:10%;background:var(--bub2);animation:float1 20s ease infinite;" aria-hidden="true"></div>
+  <div class="wrap">
+    <header class="sec-hd reveal">
+      <span class="sec-tag">// about me</span>
+      <h2 class="sec-title">À <em>propos</em></h2>
+      <div class="divider"></div>
+    </header>
+    <div class="about-grid reveal">
+      <div>
+        <div class="about-infos">
+          <div class="about-info-item"><span class="aiv">23</span><span class="ail">Ans</span></div>
+          <div class="about-info-item"><span class="aiv">SISR</span><span class="ail">Option BTS</span></div>
+          <div class="about-info-item"><span class="aiv" style="font-size:1.4rem;">H3</span><span class="ail">HITEMA Paris</span></div>
+          <div class="about-info-item"><span class="aiv" style="font-size:1.15rem;">Zorba</span><span class="ail">Alternance</span></div>
+        </div>
+        <div class="about-extra">
+          <div class="about-pill">
+            <span class="about-pill-icon">🌍</span>
+            <span><strong style="color:var(--txt);">Anglais</strong> — Bilingue, niveau C2</span>
+          </div>
+          <div class="about-pill">
+            <span class="about-pill-icon">🥊</span>
+            <span>4 ans de <strong style="color:var(--txt);">Kickboxing</strong> en club · Musculation</span>
+          </div>
+          <div class="about-pill">
+            <span class="about-pill-icon">🎮</span>
+            <span><strong style="color:var(--txt);">Jeux-vidéos</strong> — Elden Ring, Baldur's Gate, LoL</span>
+          </div>
+          <div class="about-pill">
+            <span class="about-pill-icon">📚</span>
+            <span>Manga, comics, manhwa, light novels</span>
+          </div>
+        </div>
+      </div>
+      <div class="about-card">
+        <p class="about-quote">"Technicien informatique dédié,<br>entre cybersécurité et créativité."</p>
+        <p class="about-p">
+          Bonjour, je m'appelle <strong>Alexis APPERY</strong>, j'ai <strong>23 ans</strong> et je suis étudiant en <strong>BTS SIO option SISR</strong> à <strong>H3 HITEMA</strong>, Paris 15e.
+        </p>
+        <p class="about-p">
+          Actuellement en alternance au sein de l'entreprise <strong>Zorba Group</strong>, plus précisément aux côtés de l'équipe post-production, je suis leur <strong>technicien informatique dédié</strong> ! Déterminé, sérieux et autonome, je suis passionné par la maintenance des infrastructures, la sécurité des systèmes et l'administration réseaux.
+        </p>
+        <div class="zorba-box">
+          <span style="font-size:1.6rem;">🎬</span>
+          <div class="zorba-box-txt">
+            <strong>Zorba Group</strong> — Agence créative internationale spécialisée en brand content &amp; entertainment.<br>
+            Paris · Shanghai · Singapour · Toronto — <em>Infused by science, moved by art, powered by tech.</em>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PARCOURS ===== -->
+<section id="parcours" class="sec-alt">
+  <div class="wrap">
+    <header class="sec-hd reveal">
+      <span class="sec-tag">// expériences</span>
+      <h2 class="sec-title">Mon <em>Parcours</em></h2>
+      <div class="divider"></div>
+    </header>
+    <div class="parcours-grid reveal">
+      <!-- SCOLAIRE -->
+      <div>
+        <p class="tl-label">📚 Parcours Scolaire</p>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot on"></div>
+            <div class="tl-date">2025 → Aujourd'hui</div>
+            <div class="tl-title">BTS SIO – Option SISR</div>
+            <div class="tl-place">🏫 H3 HITEMA — Paris 15e</div>
+            <p class="tl-desc">Formation en alternance orientée systèmes, réseaux et cybersécurité. Administration d'infrastructures, sécurisation des systèmes, gestion des réseaux d'entreprise. Rythme : 2 jours école / 3 jours entreprise.</p>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-date">2021 → 2022</div>
+            <div class="tl-title">BTS SN – Option B (Électronique et Communication)</div>
+            <div class="tl-place">🏫 Lycée Louis Armand — Paris 15e</div>
+            <p class="tl-desc">Formation en systèmes numériques, électronique et communication. Bases solides en électronique et en réseaux numériques.</p>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-date">2018 → 2021</div>
+            <div class="tl-title">Bac Pro ARED — Mention Bien &amp; Mention Européenne</div>
+            <div class="tl-place">🏫 Lycée de l'Observatoire — Meudon</div>
+            <p class="tl-desc">Baccalauréat professionnel obtenu avec mention Bien et mention Européenne. Première expérience du monde technique et de la rigueur professionnelle.</p>
+          </div>
+        </div>
+      </div>
+      <!-- PROFESSIONNEL -->
+      <div>
+        <p class="tl-label">💼 Expériences Professionnelles</p>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot on"></div>
+            <div class="tl-date">2025 → Aujourd'hui</div>
+            <div class="tl-title">Alternance — Technicien Informatique Dédié</div>
+            <div class="tl-place">🎬 Zorba Group — Paris</div>
+            <ul class="tl-tasks">
+              <li>Gestion et maintenance du parc informatique de l'équipe post-production</li>
+              <li>Support technique utilisateurs sur site (logiciels, hardware, réseau)</li>
+              <li>Installation et configuration des équipements informatiques</li>
+              <li>Diagnostic et résolution des incidents techniques</li>
+            </ul>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-date">2024 — CDD 1 an</div>
+            <div class="tl-title">Hôte d'Accueil</div>
+            <div class="tl-place">🏢 Atrium de Chaville — Île-de-France</div>
+            <ul class="tl-tasks">
+              <li>Accueil, orientation des usagers et gestion des appels entrants</li>
+              <li>Suivi du planning et des événements du site</li>
+            </ul>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-date">2021 — 2 stages de 4 semaines</div>
+            <div class="tl-title">Technicien Informatique</div>
+            <div class="tl-place">🏢 SunData</div>
+            <ul class="tl-tasks">
+              <li>Réparations hardware et software d'appareils électroniques</li>
+              <li>Diagnostic, devis et interventions sur site à la demande</li>
+              <li>Vente et conseil en matériel informatique</li>
+            </ul>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-date">2019 — Stage 4 semaines</div>
+            <div class="tl-title">Technicien de Maintenance</div>
+            <div class="tl-place">🏥 LNA Santé</div>
+            <ul class="tl-tasks">
+              <li>Entretien préventif et curatif de l'équipement électronique</li>
+              <li>Disponible pour les réparations urgentes du matériel</li>
+            </ul>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-date">2018 — Stage 1 semaine</div>
+            <div class="tl-title">Agent Helpdesk</div>
+            <div class="tl-place">🏢 Renesas</div>
+            <ul class="tl-tasks">
+              <li>Découverte du système de ticketing et dépannage à distance</li>
+              <li>Mise en relation clients / techniciens SAV</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BTS SIO ===== -->
+<section id="bts-sio" class="sec-norm">
+  <div class="wrap">
+    <header class="sec-hd reveal">
+      <span class="sec-tag">// formation</span>
+      <h2 class="sec-title">Le <em>BTS SIO</em></h2>
+      <div class="divider"></div>
+    </header>
+    <div class="bts-3 reveal">
+      <div class="bts-card">
+        <div style="font-size:2rem;margin-bottom:.9rem;">🎓</div>
+        <h3>Formation en 2 ans</h3>
+        <p>Le BTS Services Informatiques aux Organisations prépare des professionnels capables de répondre aux besoins informatiques des entreprises publiques et privées, en alternance ou en stage.</p>
+      </div>
+      <div class="bts-card">
+        <div style="font-size:2rem;margin-bottom:.9rem;">🔀</div>
+        <h3>Deux spécialités</h3>
+        <p>SLAM orientée développement logiciel et web, et SISR orientée administration des systèmes, réseaux et cybersécurité — mon option, celle qui correspond à mon goût pour l'infrastructure.</p>
+      </div>
+      <div class="bts-card">
+        <div style="font-size:2rem;margin-bottom:.9rem;">🏢</div>
+        <h3>Alternance en entreprise</h3>
+        <p>Rythme 2 jours école / 3 jours entreprise. Mise en pratique directe des compétences dans un environnement professionnel réel — dans mon cas chez Zorba Group, à Paris.</p>
+      </div>
+    </div>
+    <header class="sec-hd reveal" style="margin-top:4rem;">
+      <span class="sec-tag">// options</span>
+      <h2 class="sec-title">SLAM vs <em>SISR</em></h2>
+    </header>
+    <div class="opt-grid reveal">
+      <div class="opt-card">
+        <h3 class="opt-title">Option SLAM</h3>
+        <p class="opt-sub">Solutions Logicielles et Applications Métiers</p>
+        <p class="opt-desc">Orientée développement logiciel et applications web/mobile. Conception, développement et maintenance d'applications pour les organisations.</p>
+        <ul class="opt-jobs">
+          <li>Développeur d'applications</li>
+          <li>Développeur Web Full Stack</li>
+          <li>Concepteur d'applications</li>
+          <li>Programmeur analyste</li>
+        </ul>
+      </div>
+      <div class="opt-card chosen">
+        <h3 class="opt-title">Option SISR</h3>
+        <p class="opt-sub">Solutions d'Infrastructure, Systèmes et Réseaux</p>
+        <p class="opt-desc">Orientée administration systèmes, réseaux et cybersécurité. Déploiement, gestion et sécurisation d'infrastructures informatiques d'entreprise.</p>
+        <ul class="opt-jobs">
+          <li>Administrateur systèmes et réseaux</li>
+          <li>Technicien / Analyste cybersécurité</li>
+          <li>Responsable infrastructure IT</li>
+          <li>Analyste SOC – Technicien support N2</li>
+        </ul>
+      </div>
+    </div>
+    <header class="sec-hd reveal" style="margin-top:4rem;">
+      <span class="sec-tag">// programme</span>
+      <h2 class="sec-title">Les blocs de <em>compétences</em></h2>
+    </header>
+    <div class="blocs-3 reveal">
+      <div class="bloc-card">
+        <div class="bloc-badge">B1</div>
+        <h3>Support et mise à disposition de services informatiques</h3>
+        <ul class="bloc-skills">
+          <li>Gérer le patrimoine informatique</li>
+          <li>Répondre aux incidents et demandes</li>
+          <li>Développer la présence en ligne</li>
+          <li>Travailler en mode projet</li>
+          <li>Mettre à disposition des services</li>
+          <li>Organiser son développement professionnel</li>
+        </ul>
+      </div>
+      <div class="bloc-card">
+        <div class="bloc-badge" style="background:rgba(59,130,246,.1);border-color:rgba(59,130,246,.3);color:var(--blue);">B2</div>
+        <h3>Administration des systèmes et des réseaux</h3>
+        <ul class="bloc-skills">
+          <li>Installer et configurer les infrastructures</li>
+          <li>Maintenir les éléments du réseau</li>
+          <li>Gérer des indicateurs et seuils d'alerte</li>
+          <li>Prendre en charge les demandes liées aux infras</li>
+          <li>Assurer la continuité de service</li>
+        </ul>
+      </div>
+      <div class="bloc-card">
+        <div class="bloc-badge" style="background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.3);color:var(--green);">B3</div>
+        <h3>Cybersécurité des services informatiques</h3>
+        <ul class="bloc-skills">
+          <li>Protéger les données personnelles (RGPD)</li>
+          <li>Préserver l'identité numérique</li>
+          <li>Sécuriser les équipements et usages</li>
+          <li>Garantir disponibilité, intégrité, confidentialité</li>
+          <li>Sécuriser les solutions applicatives</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROJETS PPE ===== -->
+<section id="projets" class="sec-norm">
+  <div class="zbubble" style="width:400px;height:400px;top:50%;right:-120px;transform:translateY(-50%);background:var(--bub1);animation:float2 16s ease infinite;" aria-hidden="true"></div>
+  <div class="wrap">
+    <header class="sec-hd reveal">
+      <span class="sec-tag">// ppe</span>
+      <h2 class="sec-title">Projets <em>PPE</em></h2>
+      <div class="divider"></div>
+    </header>
+    <div class="proj-grid">
+
+      <!-- PPE 1 : LAMP + GLPI -->
+      <article class="proj-card reveal">
+        <div class="proj-head">
+          <div class="proj-ico">🗄️</div>
+          <div>
+            <div class="proj-title">Installation pile LAMP &amp; GLPI</div>
+            <div class="proj-period">// BTS SIO SISR — H3 HITEMA — 2024/2025</div>
+          </div>
+        </div>
+        <div class="proj-body">
+          <p class="proj-desc">Déploiement complet d'une pile LAMP (Linux, Apache, MariaDB, PHP) sur une VM Debian 12, suivie de l'installation et de la configuration de GLPI pour la gestion de parc informatique et le système de ticketing.</p>
+          <ul class="proj-steps">
+            <li>Préparation VM Debian 12 (clone, sources.list, hostname)</li>
+            <li>Installation et configuration d'Apache2 (serveur HTTP)</li>
+            <li>Installation et sécurisation de MariaDB + création base GLPI</li>
+            <li>Installation de PHP et ses modules (ldap, xmlrpc, curl, gd…)</li>
+            <li>Déploiement GLPI 11.0.2 et configuration Apache VirtualHost</li>
+            <li>Gestion des utilisateurs et profils (Super-Admin, Technicien…)</li>
+            <li>Création et résolution de tickets (cycle complet)</li>
+            <li>Mise en place des plugins : GLPI Inventory + GLPI Agent 1.7</li>
+          </ul>
+          <div class="tags-row" style="margin-top:.9rem;">
+            <span class="tag">Debian 12</span>
+            <span class="tag">Apache2</span>
+            <span class="tag">MariaDB</span>
+            <span class="tag">PHP</span>
+            <span class="tag tag-g">GLPI 11.0.2</span>
+            <span class="tag tag-b">VMware</span>
+          </div>
+          <div class="cbadges">
+            <span class="cbadge">B1.1</span>
+            <span class="cbadge">B1.2</span>
+            <span class="cbadge">B1.5</span>
+            <span class="cbadge">B2.1</span>
+            <span class="cbadge">B2.2</span>
+          </div>
+        </div>
+        <div class="proj-foot">
+          <a href="TP_Installation_pile_LAMP_et_GLPI_-_Alexis_APPERY_1.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm">📄 Compte-rendu complet</a>
+        </div>
+      </article>
+
+      <!-- PPE 2 : Debian Linux Marvel -->
+      <article class="proj-card reveal" style="transition-delay:.12s;">
+        <div class="proj-head">
+          <div class="proj-ico">🐧</div>
+          <div>
+            <div class="proj-title">Administration Linux Debian 12</div>
+            <div class="proj-period">// BTS SIO SISR — H3 HITEMA — 2024/2025</div>
+          </div>
+        </div>
+        <div class="proj-body">
+          <p class="proj-desc">Installation et configuration complète de Debian 12 sous VMware Workstation Pro : paramétrage réseau manuel, gestion des utilisateurs et groupes Linux, mise en place d'une arborescence partagée avec gestion fine des permissions POSIX.</p>
+          <ul class="proj-steps">
+            <li>Installation Debian 12 sur VMware Workstation Pro 25H2</li>
+            <li>Configuration réseau manuelle (interfaces, NAT, suppression NetworkManager)</li>
+            <li>Installation des paquets logiciels (vim, tree, open-vm-tools)</li>
+            <li>Création de 4 utilisateurs Linux (ironman, captainamerica, thor, hulk)</li>
+            <li>Création du groupe « avengers » — gestion avec usermod</li>
+            <li>Arborescence /home/avengers/{commun, perso/{user}} </li>
+            <li>Droits POSIX : chmod 3770 (commun) et chmod 3700 (perso)</li>
+            <li>Tests d'accès et validation des permissions</li>
+          </ul>
+          <div class="tags-row" style="margin-top:.9rem;">
+            <span class="tag">Debian 12</span>
+            <span class="tag">VMware Pro 25H2</span>
+            <span class="tag">Linux / Bash</span>
+            <span class="tag tag-g">Permissions POSIX</span>
+            <span class="tag tag-a">Gestion utilisateurs</span>
+          </div>
+          <div class="cbadges">
+            <span class="cbadge">B1.1</span>
+            <span class="cbadge">B1.5</span>
+            <span class="cbadge">B2.1</span>
+            <span class="cbadge">B2.2</span>
+          </div>
+        </div>
+        <div class="proj-foot">
+          <a href="TP_Debian_Marvel_APPERY_Alexis.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm">📄 Compte-rendu complet</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== VEILLE TECHNOLOGIQUE ===== -->
+<section id="veille" class="sec-alt">
+  <div class="wrap">
+    <header class="sec-hd reveal">
+      <span class="sec-tag">// veille</span>
+      <h2 class="sec-title">Veille <em>Technologique</em></h2>
+      <div class="divider"></div>
+    </header>
+    <div class="veille-grid reveal">
+      <div class="veille-topic">
+        <div style="font-size:2.8rem;margin-bottom:.9rem;">🔐</div>
+        <h3>L'évolution des cyberattaques par <em>ransomware</em></h3>
+        <p class="vsub">// Sujet de veille — 2025/2027</p>
+        <p>Analyse des nouvelles techniques d'attaque par ransomware (double extorsion, RaaS), leurs impacts sur les organisations publiques et privées, et les contre-mesures techniques et organisationnelles à mettre en place. Étude des incidents publiés par l'ANSSI et le CERT-FR.</p>
+      </div>
+      <div class="veille-right">
+        <div class="veille-box">
+          <h4 class="vbox-title">Outils de veille utilisés</h4>
+          <div class="tools-row">
+            <div class="tool-pill"><span>📰</span> CERT-FR</div>
+            <div class="tool-pill"><span>📊</span> ANSSI</div>
+            <div class="tool-pill"><span>🔔</span> Google Alerts</div>
+            <div class="tool-pill"><span>📡</span> Feedly / RSS</div>
+            <div class="tool-pill"><span>📚</span> CVE / NIST NVD</div>
+            <div class="tool-pill"><span>🐦</span> Twitter/X (comptes sécu)</div>
+            <div class="tool-pill"><span>📬</span> The Hacker News</div>
+            <div class="tool-pill"><span>🧵</span> Reddit r/netsec</div>
+          </div>
+        </div>
+        <div class="veille-box">
+          <h4 class="vbox-title">Impact sur mon domaine SISR</h4>
+          <p>Les ransomwares modernes utilisent des techniques de double extorsion et ciblent en priorité les infrastructures critiques via propagation latérale. Cette veille nourrit directement mon travail chez Zorba Group — elle m'a permis de comprendre l'importance de la segmentation réseau, des sauvegardes hors-ligne (règle 3-2-1) et des politiques Zero Trust pour protéger les environnements de post-production.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PATRIMOINE INFORMATIQUE ===== -->
+<section id="patrimoine" class="sec-norm">
+  <div class="wrap">
+    <header class="sec-hd reveal">
+      <span class="sec-tag">// gestion</span>
+      <h2 class="sec-title">Gestion du Patrimoine <em>Informatique</em></h2>
+      <div class="divider"></div>
+    </header>
+    <p class="intro-txt reveal">
+      La gestion du patrimoine informatique consiste à inventorier, maintenir et sécuriser l'ensemble des ressources matérielles et logicielles d'une organisation. Ces compétences sont au cœur de ma formation et de mon alternance chez Zorba Group.
+    </p>
+    <div class="pat-grid reveal">
+      <div class="pat-card">
+        <div class="pat-ico">📋</div>
+        <h3>Inventaire du parc</h3>
+        <p>Recensement et suivi des équipements (postes, périphériques, équipements réseau) via <strong style="color:var(--cyan)">GLPI</strong> et OCS Inventory — mis en pratique lors du PPE LAMP/GLPI.</p>
+      </div>
+      <div class="pat-card">
+        <div class="pat-ico">🔧</div>
+        <h3>Maintenance corrective</h3>
+        <p>Diagnostic et résolution de pannes matérielles et logicielles, gestion des tickets GLPI (B1.2), intervention sur site chez Zorba Group et lors des stages chez SunData et LNA Santé.</p>
+      </div>
+      <div class="pat-card">
+        <div class="pat-ico">🔄</div>
+        <h3>Mises à jour &amp; Patches</h3>
+        <p>Gestion des mises à jour système (apt sous Debian, WSUS sous Windows) pour maintenir la sécurité et la performance du parc. Pratique quotidienne en alternance.</p>
+      </div>
+      <div class="pat-card">
+        <div class="pat-ico">💾</div>
+        <h3>Sauvegardes</h3>
+        <p>Mise en place de stratégies de sauvegarde (règle 3-2-1), automatisation et tests réguliers de restauration pour garantir la continuité d'activité — particulièrement critique en post-production.</p>
+      </div>
+      <div class="pat-card">
+        <div class="pat-ico">🐧</div>
+        <h3>Administration Linux</h3>
+        <p>Installation, configuration et sécurisation de Debian 12 — gestion des utilisateurs, groupes, permissions POSIX (chmod, chown, chgrp), configuration réseau manuelle. Mise en pratique lors du PPE Debian.</p>
+      </div>
+      <div class="pat-card">
+        <div class="pat-ico">📜</div>
+        <h3>Conformité &amp; RGPD</h3>
+        <p>Application des règles RGPD dans la gestion des données, rédaction de procédures internes et sensibilisation des utilisateurs aux bonnes pratiques de sécurité.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COMPÉTENCES ===== -->
+<section id="competences" class="sec-alt">
+  <div class="wrap">
+    <header class="sec-hd reveal">
+      <span class="sec-tag">// épreuve e5</span>
+      <h2 class="sec-title">Tableau de <em>Synthèse E5</em></h2>
+      <div class="divider"></div>
+    </header>
+    <p class="intro-txt reveal">BTS Services Informatiques aux Organisations &nbsp;·&nbsp; Session 2025 &nbsp;·&nbsp; Option SISR</p>
+    <div class="e5-iframe-wrap reveal">
+      <iframe
+        src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTZHnoxNReACrw6kAvZ0L6jF5IiFbEO8zQnlNpiXPH6oVqbKySRzaJ-YtHfKh60hG5XZG0_ZzQjL3ln/pubhtml?widget=true&amp;headers=false"
+        title="Tableau de synthèse E5 — Alexis APPERY"
+        allowfullscreen
+        loading="lazy">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-inner">
+      <div class="f-logo">&lt; Alexis APPERY /&gt;</div>
+      <p class="f-tag">Infused by security, moved by networks, powered by passion.</p>
+      <ul class="f-links">
+        <li><a href="#accueil">Accueil</a></li>
+        <li><a href="#apropos">À propos</a></li>
+        <li><a href="#parcours">Parcours</a></li>
+        <li><a href="#bts-sio">BTS SIO</a></li>
+        <li><a href="#projets">Projets PPE</a></li>
+        <li><a href="#competences">Compétences</a></li>
+      </ul>
+      <p class="f-copy">© 2025 Alexis APPERY &nbsp;·&nbsp; BTS SIO SISR &nbsp;·&nbsp; H3 HITEMA Paris &nbsp;·&nbsp; Portfolio Épreuve E4</p>
+    </div>
+  </div>
+</footer>
+
+<a href="#accueil" id="btt" aria-label="Retour en haut de page">↑</a>
+
+<!-- ===== SCRIPTS ===== -->
+<script>
+"use strict";
+
+/* Scroll progress */
+const sbar = document.getElementById("sbar");
+window.addEventListener("scroll", function () {
+  const st = document.documentElement.scrollTop;
+  const sh = document.documentElement.scrollHeight - window.innerHeight;
+  sbar.style.width = sh > 0 ? (st / sh * 100) + "%" : "0%";
+}, { passive: true });
+
+/* Back to top */
+const btt = document.getElementById("btt");
+window.addEventListener("scroll", function () {
+  btt.classList.toggle("show", window.scrollY > 420);
+}, { passive: true });
+
+/* Mobile burger */
+const burger = document.getElementById("burger");
+const navLinks = document.getElementById("nav-links");
+burger.addEventListener("click", function () {
+  const open = navLinks.classList.toggle("open");
+  burger.setAttribute("aria-expanded", open.toString());
+});
+navLinks.querySelectorAll("a").forEach(function (link) {
+  link.addEventListener("click", function () {
+    navLinks.classList.remove("open");
+    burger.setAttribute("aria-expanded", "false");
+  });
+});
+
+/* Active nav highlight */
+const sections = document.querySelectorAll("section[id]");
+const anchors = document.querySelectorAll(".nav-links a");
+new IntersectionObserver(function (entries) {
+  entries.forEach(function (e) {
+    if (e.isIntersecting) {
+      anchors.forEach(function (a) {
+        a.classList.toggle("active", a.getAttribute("href") === "#" + e.target.id);
+      });
+    }
+  });
+}, { threshold: 0.35 }).observe
+  ? sections.forEach(function (s) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            anchors.forEach(function (a) {
+              a.classList.toggle("active", a.getAttribute("href") === "#" + e.target.id);
+            });
+          }
+        });
+      }, { threshold: 0.35 }).observe(s);
+    })
+  : null;
+
+/* Reveal on scroll */
+const revEls = document.querySelectorAll(".reveal");
+new IntersectionObserver(function (entries) {
+  entries.forEach(function (e) {
+    if (e.isIntersecting) { e.target.classList.add("on"); }
+  });
+}, { threshold: 0.1, rootMargin: "0px 0px -40px 0px" })
+  .observe
+  ? (function () {
+      const obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add("on"); }
+        });
+      }, { threshold: 0.1, rootMargin: "0px 0px -40px 0px" });
+      revEls.forEach(function (el) { obs.observe(el); });
+    })()
+  : revEls.forEach(function (el) { el.classList.add("on"); });
+
+/* Theme toggle */
+const themeBtn = document.getElementById("theme-btn");
+const html = document.documentElement;
+themeBtn.addEventListener("click", function () {
+  const isDark = html.getAttribute("data-theme") === "dark";
+  html.setAttribute("data-theme", isDark ? "light" : "dark");
+  themeBtn.textContent = isDark ? "🌙" : "☀️";
+  try { localStorage.setItem("theme", isDark ? "light" : "dark"); } catch (e) {}
+});
+(function () {
+  try {
+    const saved = localStorage.getItem("theme");
+    if (saved) {
+      html.setAttribute("data-theme", saved);
+      themeBtn.textContent = saved === "light" ? "🌙" : "☀️";
+    }
+  } catch (e) {}
+})();
+
+/* Typewriter */
+(function () {
+  const titles = [
+    "Technicien informatique @ Zorba Group",
+    "Étudiant BTS SIO — Option SISR",
+    "Alternant en Post-Production",
+    "Passionné de Cybersécurité",
+    "Admin. Systèmes &amp; Réseaux"
+  ];
+  const el = document.getElementById("typewriter");
+  if (!el) return;
+  let ti = 0, ci = 0, del = false;
+  function tick() {
+    const cur = titles[ti];
+    el.innerHTML = del ? cur.substring(0, ci - 1) : cur.substring(0, ci + 1);
+    del ? ci-- : ci++;
+    let d = del ? 38 : 75;
+    if (!del && ci === cur.length) { d = 2200; del = true; }
+    else if (del && ci === 0) { del = false; ti = (ti + 1) % titles.length; d = 320; }
+    setTimeout(tick, d);
+  }
+  tick();
+})();
+
+</script>
+
+</body>
+</html>
